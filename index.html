@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Crop Disease Detection | Prototype</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f8f4;
+}
+
+header{
+    background:#2e7d32;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+h2{
+    color:#2e7d32;
+    margin-bottom:10px;
+}
+
+input[type=file]{
+    margin-top:10px;
+}
+
+button{
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+button:hover{
+    background:#256628;
+}
+
+img{
+    margin-top:15px;
+    width:200px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.result{
+    background:#e8f5e9;
+}
+
+footer{
+    text-align:center;
+    background:#2e7d32;
+    color:white;
+    padding:15px;
+}
+
+small{
+    color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌾 AI-Based Crop Disease Detection System</h1>
+    <p>Prototype for Sustainable Agriculture (SDG 2 – Zero Hunger)</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>📸 Upload Crop Leaf Image</h2>
+        <p>Upload a leaf image to detect disease and cure (Prototype).</p>
+
+        <input type="file" accept="image/*" onchange="loadImage(event)">
+        <br>
+        <img id="preview" style="display:none">
+
+        <br>
+        <button onclick="predictDisease()">Detect Disease</button>
+    </div>
+
+    <div class="card result" id="resultBox" style="display:none">
+        <h2>🤖 Detection Result</h2>
+        <p><strong>Disease:</strong> <span id="disease"></span></p>
+        <p><strong>Confidence:</strong> <span id="confidence"></span></p>
+        <p><strong>Recommended Cure:</strong></p>
+        <ul id="cure"></ul>
+        <small>*Prototype output – AI model not integrated*</small>
+    </div>
+
+    <div class="card">
+        <h2>🌍 Sustainability Impact</h2>
+        <ul>
+            <li>Early detection of crop diseases</li>
+            <li>Reduced crop loss</li>
+            <li>Minimized pesticide overuse</li>
+            <li>Supports SDG 2 – Zero Hunger</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <p>AI for Sustainability | UI Prototype</p>
+</footer>
+
+<script>
+const diseases = [
+    {
+        name: "Leaf Blight",
+        cure: [
+            "Remove infected leaves",
+            "Apply recommended fungicide",
+            "Avoid overhead irrigation"
+        ]
+    },
+    {
+        name: "Powdery Mildew",
+        cure: [
+            "Ensure proper air circulation",
+            "Apply sulfur-based fungicide",
+            "Avoid excessive nitrogen fertilizer"
+        ]
+    },
+    {
+        name: "Early Blight",
+        cure: [
+            "Use disease-free seeds",
+            "Apply copper-based fungicide",
+            "Practice crop rotation"
+        ]
+    },
+    {
+        name: "Healthy Leaf",
+        cure: [
+            "No treatment required",
+            "Continue regular monitoring",
+            "Maintain proper irrigation"
+        ]
+    }
+];
+
+function loadImage(event){
+    const img = document.getElementById("preview");
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.style.display = "block";
+}
+
+function predictDisease(){
+    const result = diseases[Math.floor(Math.random() * diseases.length)];
+    document.getElementById("disease").innerText = result.name;
+    document.getElementById("confidence").innerText = (90 + Math.random()*9).toFixed(2) + "%";
+
+    const cureList = document.getElementById("cure");
+    cureList.innerHTML = "";
+    result.cure.forEach(step=>{
+        const li = document.createElement("li");
+        li.innerText = step;
+        cureList.appendChild(li);
+    });
+
+    document.getElementById("resultBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
